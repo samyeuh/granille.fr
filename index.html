@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>granille</title>
+    <style>
+        .spotify {
+            text-align: center;
+            vertical-align: center;
+        }
+
+        .heures{
+            text-align: center;
+            vertical-align: center;
+        }
+
+        table {
+            border-collapse: collapse;
+            font-family: Tahoma, Geneva, sans-serif;
+        }
+        table td {
+            padding: 15px;
+        }
+        table th {
+            background-color: #54585d;
+            color: #ffffff;
+            font-weight: bold;
+            font-size: 15px;
+            border: 1px solid #54585d;
+        }
+        table tbody td {
+            color: black;
+            border: 1px solid #dddfe1;
+        }
+        table tbody tr {
+            background-color: white;
+        }
+        table tbody tr:nth-child(odd) {
+            background-color: #ffffff;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="spotify">
+        <h1>la meilleur playlist du monde ^^</h1>
+        <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/0GOLl6H17q6Chkr2glmnG0?utm_source=generator" width="70%" height="400" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        <sep></sep>
+    </div>
+    <div class="heures">
+        <h1>calculatrice d'heure pour sarah</h1>
+        <form>
+            <p> Matin </p>
+            <input type="time" select="2003-22-11T22:30" placeholder="Heure d'arrivé matin ">
+            <input type="time" placeholder="Heure de départ matin">
+            <br>
+            <p> Après-midi </p>
+            <input type="time" placeholder="Heure d'arrivé aprem">
+            <input type="time" placeholder="Heure de départ aprem">
+            <br>
+            <br>
+            <input type="button" value="Calculer !" onclick="return calcul(form)">
+        </form>
+        <br>
+        <table id="result" border="1" style="visibility: hidden; margin-left:auto; margin-right: auto;">
+            <tr>
+                <th>Matin</th>
+                <th>Après-midi</th>
+                <th>Total</th>
+            </tr>
+            <tr>
+                <td id="matin"></td>
+                <td id="aprem"></td>
+                <td id="total"></td>
+            </tr>
+        </table>
+    </div>
+</body>
+
+<script>
+    function calcul(form){
+        var first = form[0].value.split(':');
+        var matin1 = new Date('2003', '10', '22', first[0], first[1]);
+       
+        var second = form[1].value.split(':');
+        var matin2 = new Date('2003', '10', '22', second[0], second[1]);
+
+        var third = form[2].value.split(':');
+        var aprem1 = new Date('2003', '10', '22', third[0], third[1]);
+        
+        var fourth = form[3].value.split(':');
+        var aprem2 = new Date('2003', '10', '22', fourth[0], fourth[1]);
+
+
+        var matin = (matin2 - matin1)/3600000;
+        var aprem = (aprem2 - aprem1)/3600000;
+        var total = matin + aprem;
+
+        document.getElementById("matin").innerHTML = convertNumToTime(matin);
+        document.getElementById("aprem").innerHTML = convertNumToTime(aprem);
+        document.getElementById("total").innerHTML = convertNumToTime(total);
+        document.getElementById("result").style.visibility = "visible"; 
+    }
+
+    function convertNumToTime(number) {
+    var sign = (number >= 0) ? 1 : -1;
+
+    number = number * sign;
+
+    var hour = Math.floor(number);
+    var decpart = number - hour;
+
+    var min = 1 / 60;
+    decpart = min * Math.round(decpart / min);
+
+    var minute = Math.floor(decpart * 60) + '';
+    if (minute.length < 2) {
+    minute = '0' + minute; 
+    }
+    sign = sign == 1 ? '' : '-';
+
+    time = sign + hour + 'h' + minute;
+
+    return time;
+}
+
+</script>
+</html>
